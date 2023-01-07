@@ -12,12 +12,18 @@ module.exports = () => {
     entry: {
       main: './src/js/index.js',
       install: './src/js/install.js'
+      /// once built, there should be two JavaScript bundle files in the dist folder
     },
     output: {
       filename: '[name].bundle.js',
       path: path.resolve(__dirname, 'dist'),
     },
     
+    devServer: {
+      // The `hot` option is to use the webpack-dev-server in combination with the hot module replacement API.
+      hot: 'only',
+    },
+
     plugins: [
       new HtmlWebpackPlugin({
         template: './index.html',
@@ -27,7 +33,20 @@ module.exports = () => {
 
     module: {
       rules: [
-        
+        {
+          test: /\.css$/i, /// $ - marks the end of the pattern we're matching; i - case insensitive 
+          use: ['style-loader', 'css-loader'],
+        },
+        {
+          test: /\.m?js$/,
+          exclude: /(node_modules|bower_components)/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env']
+            }
+          }
+        },
       ],
     },
   };

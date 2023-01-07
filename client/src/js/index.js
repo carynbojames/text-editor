@@ -23,6 +23,15 @@ if (typeof editor === 'undefined') {
   loadSpinner();
 }
 
+/// Added HMR 
+if (module.hot) {
+  module.hot.accept((err) => {
+    if (err) {
+      console.error('Cannot apply HMR update.', err);
+    }
+  });
+}
+
 // Check if service workers are supported
 if ('serviceWorker' in navigator) {
   // register workbox service worker
@@ -31,3 +40,14 @@ if ('serviceWorker' in navigator) {
 } else {
   console.error('Service workers are not supported in this browser.');
 }
+
+/// Reference: Activity 16
+// if ('serviceWorker' in navigator) {
+//   window.addEventListener('load', () => {
+//     navigator.serviceWorker.register('/service-worker.js').then(registration => {
+//       console.log('SW registered: ', registration);
+//     }).catch(registrationError => {
+//       console.log('SW registration failed: ', registrationError);
+//     });
+//   });
+// }
