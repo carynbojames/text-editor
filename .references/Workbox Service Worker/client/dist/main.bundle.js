@@ -15,7 +15,7 @@
   \*************************/
 /***/ (() => {
 
-eval("if ('serviceWorker' in navigator) {\r\n    window.addEventListener('load', () => {\r\n      navigator.serviceWorker.register('/service-worker.js').then(registration => {\r\n        console.log('SW registered: ', registration);\r\n      }).catch(registrationError => {\r\n        console.log('SW registration failed: ', registrationError);\r\n      });\r\n    });\r\n  }\n\n//# sourceURL=webpack://workbox-service-worker/./src/js/index.js?");
+eval("if ('serviceWorker' in navigator) {\r\n    window.addEventListener('load', () => {\r\n      navigator.serviceWorker.register('/service-worker.js').then(registration => {\r\n        console.log('SW registered: ', registration);\r\n      }).catch(registrationError => {\r\n        console.log('SW registration failed: ', registrationError);\r\n      });\r\n    });\r\n  } \n\n//# sourceURL=webpack://workbox-service-worker/./src/js/index.js?");
 
 /***/ })
 

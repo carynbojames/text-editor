@@ -23,7 +23,7 @@ if (typeof editor === 'undefined') {
   loadSpinner();
 }
 
-/// Added HMR 
+/// Added HMR -- Not needed?
 if (module.hot) {
   module.hot.accept((err) => {
     if (err) {
@@ -32,22 +32,23 @@ if (module.hot) {
   });
 }
 
+/// Commented out to test the one below
 // Check if service workers are supported
-if ('serviceWorker' in navigator) {
-  // register workbox service worker
-  const workboxSW = new Workbox('/src-sw.js');
-  workboxSW.register();
-} else {
-  console.error('Service workers are not supported in this browser.');
-}
+// if ('serviceWorker' in navigator) {
+//   // register workbox service worker
+//   const workboxSW = new Workbox('/src-sw.js');
+//   workboxSW.register();
+// } else {
+//   console.error('Service workers are not supported in this browser.');
+// }
 
 /// Reference: Activity 16
-// if ('serviceWorker' in navigator) {
-//   window.addEventListener('load', () => {
-//     navigator.serviceWorker.register('/service-worker.js').then(registration => {
-//       console.log('SW registered: ', registration);
-//     }).catch(registrationError => {
-//       console.log('SW registration failed: ', registrationError);
-//     });
-//   });
-// }
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').then(registration => {
+      console.log('SW registered: ', registration);
+    }).catch(registrationError => {
+      console.log('SW registration failed: ', registrationError);
+    });
+  });
+}

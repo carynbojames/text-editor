@@ -3,8 +3,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const path = require('path');
 
-//TODO: Add WorkboxPlugin with GenerateSW class
-
 module.exports = {
   mode: 'development',
   entry: './src/js/index.js',
@@ -20,6 +18,7 @@ module.exports = {
       title: "Progressive Web Application"
     }),
     // new MiniCssExtractPlugin(), //  -- unsure what this is or if it's required
+    // functioned without the MiniCssExtractPlugin
     new WorkboxPlugin.GenerateSW({
       // these options encourage the ServiceWorkers to get in there fast
       // and not allow any straggling "old" SWs to hang around
