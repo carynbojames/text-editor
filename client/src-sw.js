@@ -27,4 +27,33 @@ warmStrategyCache({
 registerRoute(({ request }) => request.mode === 'navigate', pageCache);
 
 // TODO: Implement asset caching
-registerRoute();
+registerRoute(
+  // Here we define the callback function that will filter the requests we want to cache (in this case, JS and CSS files)
+  ({ request }) => ['style', 'script', 'worker'].includes(request.destination),
+  new CacheFirst({
+    // Name of the cache storage.
+    cacheName: 'jate-asset-cache',
+    plugins: [
+      // This plugin will cache responses with these headers to a maximum-age of 30 days
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+    ],
+  })
+);
+
+registerRoute(
+  ({ request }) => request.destination === 'image',
+  new CacheFirst({
+    cacheName: 'my-image-cache',
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+      new ExpirationPlugin({
+        maxEntries: 20,
+        maxAgeSeconds: 60 * 60 * 24 * 30, // 30 Days
+      }),
+    ],
+  })
+);

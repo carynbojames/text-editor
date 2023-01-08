@@ -1,5 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WorkboxPlugin = require('workbox-webpack-plugin'); /// added. Not needed?
+// const WorkboxPlugin = require('workbox-webpack-plugin'); /// added. Not needed?
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const path = require('path');
 const { InjectManifest } = require('workbox-webpack-plugin');
@@ -20,24 +20,24 @@ module.exports = () => {
       path: path.resolve(__dirname, 'dist'),
     },
     
-    devServer: {
-      // The `hot` option is to use the webpack-dev-server in combination with the hot module replacement API.
-      hot: 'only',
-    },
+    // devServer: {
+    //   // The `hot` option is to use the webpack-dev-server in combination with the hot module replacement API.
+    //   hot: 'only',
+    // },
 
     plugins: [
       new HtmlWebpackPlugin({
         template: './index.html',
-        title: 'Webpack Plugin'
+        title: 'Text Editor'
       }),
 
       /// Not needed? 
-      new WorkboxPlugin.GenerateSW({
-        // these options encourage the ServiceWorkers to get in there fast
-        // and not allow any straggling "old" SWs to hang around
-        clientsClaim: true,
-        skipWaiting: true,
-      }),
+      // new WorkboxPlugin.GenerateSW({
+      //   // these options encourage the ServiceWorkers to get in there fast
+      //   // and not allow any straggling "old" SWs to hang around
+      //   clientsClaim: true,
+      //   skipWaiting: true,
+      // }),
 
       new InjectManifest({
         swScrc: './src-sw.js',
@@ -45,20 +45,23 @@ module.exports = () => {
       }),
 
       new WebpackPwaManifest({
-        name: 'Manifest',
-        short_name: 'Manifest',
-        description: 'Manifest Template',
+        fingerprints: false,
+        inject: true,
+        display: "standalone",
+        name: 'Text Editor',
+        short_name: 'JATE',
+        description: 'Just Another Text Editor',
         background_color: '#7eb4e2',
         theme_color: '#7eb4e2',
         start_url: './',
         publicPath: './',
-      //   icons: [
-      //     {
-      //       src: path.resolve('assets/images/logo.png'),
-      //       sizes: [96, 128, 192, 256, 384, 512],
-      //       destination: path.join('assets', 'icons'),
-      //     },
-      //   ],
+        icons: [
+          {
+            src: path.resolve('src/images/logo.png'),
+            sizes: [96, 128, 192, 256, 384, 512],
+            destination: path.join('assets', 'icons'),
+          },
+        ],
       }),
     ],
 
@@ -67,6 +70,10 @@ module.exports = () => {
         {
           test: /\.css$/i, /// $ - marks the end of the pattern we're matching; i - case insensitive 
           use: ['style-loader', 'css-loader'],
+        },
+        {
+          test: /\.(png|svg|jpg|jpeg|gif)$/i,
+          type: 'asset/resource',
         },
         {
           test: /\.m?js$/,
