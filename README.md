@@ -4,6 +4,7 @@
 Text editor that runs in the browser using progressive web applications
 
 ## Deployed Heroku Site Link
+https://texteditorcbj.herokuapp.com/ 
 
 ## Github Link
 https://github.com/carynbojames/text-editor 
