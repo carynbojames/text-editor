@@ -40,7 +40,7 @@ module.exports = () => {
       // }),
 
       new InjectManifest({
-        swScrc: './src-sw.js',
+        swSrc: './src-sw.js',
         swDest: './src-sw.js'
       }),
 
